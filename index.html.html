@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ইংরেজি টেস্ট স্কোর তুলনা – Moves Education BD</title>
+<style>
+:root {
+  --bg: #F4F7F9;
+  --surface: #FFFFFF;
+  --ink: #132238;
+  --muted: #56667A;
+  --line: #D5DDE6;
+  --accent: #0B6B6B;
+  --accent-ink: #FFFFFF;
+  --soft: #E2F0EF;
+  --wa: #128C4A;
+  --warn: #7A4E00;
+  --warn-bg: #FFF3D6;
+  --warn-line: #EBCF8E;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1620; --surface: #152130; --ink: #E8EEF5; --muted: #97A7BA; --line: #2A3B4E;
+    --accent: #52C7C0; --accent-ink: #062321; --soft: #12312F; --wa: #4CD08A;
+    --warn: #F2C878; --warn-bg: #2A2110; --warn-line: #5A4718;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1620; --surface: #152130; --ink: #E8EEF5; --muted: #97A7BA; --line: #2A3B4E;
+  --accent: #52C7C0; --accent-ink: #062321; --soft: #12312F; --wa: #4CD08A;
+  --warn: #F2C878; --warn-bg: #2A2110; --warn-line: #5A4718;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+button, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.chips > .chip-btn { margin: 0 8px 8px 0; }
+.tblwrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; margin-top: 12px; }
+.tblwrap table { border-collapse: collapse; width: 100%; min-width: 460px; font-size: 0.92rem; }
+.tblwrap th, .tblwrap td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.tblwrap thead th { background: var(--bg); color: var(--muted); font-weight: 600; }
+.tblwrap tbody tr:last-child th, .tblwrap tbody tr:last-child td { border-bottom: 0; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Bengali", "Nirmala UI", "Kohinoor Bangla", "Bangla Sangam MN", Arial, sans-serif;
+  font-size: 16px; line-height: 1.6; font-variant-numeric: lining-nums tabular-nums;
+}
+main { max-width: 640px; margin: 0 auto; padding: 18px 16px 48px; padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px)); }
+
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; }
+.brand { font-weight: 700; font-size: 1.02rem; }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--surface); }
+.lang button {
+  font: inherit; font-size: 0.9rem; font-weight: 600; padding: 6px 14px; border: 0; background: transparent; color: var(--ink); cursor: pointer; min-height: 40px;
+}
+.lang button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+
+h1 { font-size: clamp(1.5rem, 6vw, 2rem); line-height: 1.3; margin: 0 0 8px; font-weight: 700; }
+.lede { margin: 0 0 20px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+.label { font-size: 0.92rem; font-weight: 600; color: var(--muted); margin-bottom: 8px; display: block; }
+.step + .step { margin-top: 18px; }
+
+.chips { display: flex; flex-wrap: wrap; }
+.chip-btn {
+  font: inherit; font-size: 0.95rem; font-weight: 600; padding: 9px 14px; min-height: 44px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--ink); cursor: pointer;
+}
+.chip-btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+.ruler { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.band {
+  font: inherit; font-weight: 600; font-size: 1.05rem; min-height: 52px; border: 0;
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  background: var(--bg); color: var(--ink); cursor: pointer;
+}
+.band:nth-child(6n) { border-right: 0; }
+.band:nth-last-child(-n+5) { border-bottom: 0; }
+.band[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+
+input[type="number"] {
+  font: inherit; font-size: 1.2rem; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; min-height: 52px; width: 100%;
+}
+.hint { font-size: 0.86rem; color: var(--muted); margin-top: 6px; }
+
+.chip-btn:focus-visible, .band:focus-visible, input:focus-visible, .lang button:focus-visible, .cta a:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 2px;
+}
+
+.result { margin-top: 16px; }
+.headline { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.headline .k { color: var(--muted); font-weight: 600; }
+.headline .big { font-size: clamp(3.2rem, 16vw, 4.6rem); font-weight: 300; line-height: 1; letter-spacing: -0.03em; }
+.level { margin-top: 10px; }
+.level .pill { display: inline-block; padding: 3px 10px; border-radius: 6px; background: var(--soft); color: var(--accent); font-weight: 700; margin-right: 8px; }
+.level span.txt { color: var(--muted); font-size: 0.95rem; }
+.note { margin: 12px 0 0; color: var(--muted); font-size: 0.93rem; }
+.msg { padding: 12px 14px; border-radius: 8px; background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn); }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.cell { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--bg); }
+.cell .t { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+.cell .v { font-size: 1.5rem; font-weight: 600; margin-top: 2px; }
+.cell.mine { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.cell .tag { display: block; font-size: 0.75rem; color: var(--accent); font-weight: 700; }
+
+.cta { margin-top: 18px; border: 1px solid var(--accent); border-radius: 12px; padding: 16px; background: var(--soft); }
+.cta h2 { font-size: 1.05rem; margin: 0 0 6px; }
+.cta p { margin: 0 0 12px; color: var(--ink); font-size: 0.95rem; }
+.cta .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.cta a {
+  display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 700;
+  min-height: 48px; padding: 10px 18px; border-radius: 10px;
+}
+.cta a.wa { background: var(--wa); color: #fff; }
+.cta a.call { border: 1px solid var(--accent); color: var(--accent); background: var(--surface); }
+:root[data-theme="dark"] .cta a.wa { color: #062321; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta a.wa { color: #062321; } }
+
+.fine { margin-top: 20px; font-size: 0.85rem; color: var(--muted); }
+.fine p { margin: 0 0 8px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div class="brand" id="brand"></div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="lang-bn" aria-pressed="true">বাংলা</button>
+      <button type="button" id="lang-en" aria-pressed="false">English</button>
+    </div>
+  </div>
+
+  <h1 id="h1"></h1>
+  <p class="lede" id="lede"></p>
+
+  <div class="card">
+    <div class="step">
+      <span class="label" id="lblTest"></span>
+      <div class="chips" id="chips" role="group" aria-labelledby="lblTest"></div>
+    </div>
+    <div class="step" id="inputBox"></div>
+    <div id="result"></div>
+  </div>
+
+  <div class="msg" id="boot" style="margin-top:16px">
+    এই পেজটি সঠিকভাবে চালু হচ্ছে না। ফাইলটি চ্যাট বা ফাইল-ম্যানেজারের প্রিভিউতে না খুলে Chrome বা Safari ব্রাউজারে খুলুন, অথবা ওয়েব লিংক ব্যবহার করুন।<br>
+    This page is not running. Open it in Chrome or Safari instead of a chat or file-manager preview, or use the web link.
+  </div>
+
+  <noscript>
+    <div class="tblwrap">
+      <table>
+        <thead>
+          <tr><th>IELTS</th><th>TOEFL new 1–6</th><th>TOEFL old 0–120</th><th>PTE Academic</th><th>Duolingo</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>9.0</th><td>6.0</td><td>118–120</td><td>89–90</td><td>145–160</td></tr>
+          <tr><th>8.5</th><td>6.0</td><td>115–117</td><td>83–88</td><td>145–160</td></tr>
+          <tr><th>8.0</th><td>6.0</td><td>110–114</td><td>79–82</td><td>130–144</td></tr>
+          <tr><th>7.5</th><td>5.5</td><td>102–109</td><td>73–78</td><td>130–144</td></tr>
+          <tr><th>7.0</th><td>5.0</td><td>94–101</td><td>65–72</td><td>120–129</td></tr>
+          <tr><th>6.5</th><td>4.5</td><td>79–93</td><td>58–64</td><td>110–119</td></tr>
+          <tr><th>6.0</th><td>4.0</td><td>60–78</td><td>50–57</td><td>100–109</td></tr>
+          <tr><th>5.5</th><td>3.5</td><td>46–59</td><td>42–49</td><td>90–99</td></tr>
+          <tr><th>5.0</th><td>2.5</td><td>35–45</td><td>36–41</td><td>—</td></tr>
+          <tr><th>4.5</th><td>2.0</td><td>32–34</td><td>30–35</td><td>—</td></tr>
+          <tr><th>4.0</th><td>1.5</td><td>up to 31</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </noscript>
+
+  <div class="fine" id="fine"></div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // If the script runs, the "not running" notice is removed.
+  document.getElementById("boot").hidden = true;
+
+  // ============ EDIT HERE ============
+  // Put the agency's contact numbers in full international format, digits only.
+  // Example for a Bangladesh mobile number: "8801XXXXXXXXX"
+  // Leave a value empty ("") to hide that button.
+  var CONFIG = {
+    brand: "Moves Education BD",
+    whatsapp: "",
+    phone: ""
+  };
+  // ===================================
+
+  var BANDS = [
+    { b: 9,   cefr: "C2", tn: 6,   to: [118, 120], pte: [89, 90], det: [145, 160] },
+    { b: 8.5, cefr: "C2", tn: 6,   to: [115, 117], pte: [83, 88], det: [145, 160] },
+    { b: 8,   cefr: "C1", tn: 6,   to: [110, 114], pte: [79, 82], det: [130, 144] },
+    { b: 7.5, cefr: "C1", tn: 5.5, to: [102, 109], pte: [73, 78], det: [130, 144] },
+    { b: 7,   cefr: "C1", tn: 5,   to: [94, 101],  pte: [65, 72], det: [120, 129] },
+    { b: 6.5, cefr: "B2", tn: 4.5, to: [79, 93],   pte: [58, 64], det: [110, 119] },
+    { b: 6,   cefr: "B2", tn: 4,   to: [60, 78],   pte: [50, 57], det: [100, 109] },
+    { b: 5.5, cefr: "B2", tn: 3.5, to: [46, 59],   pte: [42, 49], det: [90, 99] },
+    { b: 5,   cefr: "B1", tn: 2.5, to: [35, 45],   pte: [36, 41], det: null },
+    { b: 4.5, cefr: "B1", tn: 2,   to: [32, 34],   pte: [30, 35], det: null },
+    { b: 4,   cefr: "B1", tn: 1.5, to: [0, 31],    pte: null,     det: null }
+  ];
+
+  var TESTS = {
+    ielts: { def: 6.5 },
+    tn:  { min: 1,  max: 6,   step: 0.5, def: 4.5 },
+    to:  { min: 0,  max: 120, step: 1,   def: 90 },
+    pte: { min: 10, max: 90,  step: 1,   def: 58 },
+    det: { min: 10, max: 160, step: 5,   def: 120 }
+  };
+  var ORDER = ["ielts", "tn", "to", "pte", "det"];
+
+  var TXT = {
+    bn: {
+      title: "ইংরেজি টেস্ট স্কোর তুলনা",
+      lede: "আপনার IELTS, TOEFL, PTE বা Duolingo স্কোর দিন। অন্য টেস্টে সেটি প্রায় কত হবে, দেখে নিন।",
+      lblTest: "আপনার কাছে কোন টেস্টের স্কোর আছে?",
+      lblIelts: "IELTS ওভারঅল ব্যান্ড",
+      lblScore: "আপনার স্কোর",
+      test: { ielts: "IELTS", tn: "TOEFL (নতুন ১–৬)", to: "TOEFL (পুরনো ০–১২০)", pte: "PTE Academic", det: "Duolingo" },
+      hint: {
+        tn: "১ থেকে ৬, আধা ধাপে (যেমন 4.5)",
+        to: "০ থেকে ১২০। ২১ জানুয়ারি ২০২৬-এর আগে দেওয়া টেস্টের জন্য",
+        pte: "১০ থেকে ৯০",
+        det: "১০ থেকে ১৬০"
+      },
+      equals: "আপনার স্কোর IELTS",
+      cell: { tn: "TOEFL iBT (নতুন ১–৬)", to: "TOEFL iBT (পুরনো ০–১২০)", pte: "PTE Academic", det: "Duolingo English Test" },
+      mine: "আপনার স্কোর",
+      level: {
+        B1: "মাঝামাঝি (Intermediate)",
+        B2: "উচ্চ-মাঝারি (Upper-intermediate)",
+        C1: "অ্যাডভান্সড (Advanced)",
+        C2: "অত্যন্ত দক্ষ (Proficient)"
+      },
+      upTo: "সর্বোচ্চ ",
+      ctaTitle: "এই স্কোর দিয়ে কোথায় পড়া যায়?",
+      ctaBody: "কোন দেশ ও বিশ্ববিদ্যালয়ে আপনার স্কোর যথেষ্ট, তা জানতে " + CONFIG.brand + "-এর কাউন্সেলরের সাথে কথা বলুন।",
+      wa: "WhatsApp-এ মেসেজ করুন",
+      call: "কল করুন",
+      waMsg: function (testLabel, val, ielts) { return "হ্যালো, আমার " + testLabel + " স্কোর " + val + " (IELTS " + ielts + "-এর সমান)। আমি কাউন্সেলিং সম্পর্কে জানতে চাই।"; },
+      fine: [
+        "এটি একটি আনুমানিক তুলনা। কোন টেস্ট গ্রহণযোগ্য এবং কত স্কোর লাগবে, তা বিশ্ববিদ্যালয় ও দূতাবাস নিজেরা ঠিক করে। অনেক জায়গায় প্রতিটি স্কিলে আলাদা ন্যূনতম স্কোরও লাগে। ভিসার জন্য নির্দিষ্ট অনুমোদিত টেস্ট (যেমন যুক্তরাজ্যের জন্য UKVI) লাগতে পারে।",
+        "২১ জানুয়ারি ২০২৬ থেকে TOEFL iBT-এর স্কোর ১–৬ স্কেলে দেওয়া হচ্ছে। Duolingo-এর তুলনা সূত্রভেদে সামান্য আলাদা হতে পারে।"
+      ],
+      err: {
+        enter: "স্কোর লিখুন।",
+        range: function (a, b) { return a + " থেকে " + b + "-এর মধ্যে স্কোর দিন।"; },
+        half: "TOEFL ১–৬ স্কোর আধা ধাপে হয়, যেমন 4.5 বা 5.0।",
+        belowTn: "এই স্কোর IELTS 4.0-এর নিচে, তাই এখানে তুলনা দেখানো যাচ্ছে না।",
+        belowPte: "এই স্কোর IELTS 4.5-এর নিচে। এখানে PTE 30 থেকে তুলনা শুরু।",
+        belowDet: "এই স্কোর IELTS 5.5-এর নিচে। এখানে Duolingo 90 থেকে তুলনা শুরু।"
+      },
+      note: {
+        upper: function (b, r) { return "এই স্কোর IELTS " + b + " ব্যান্ডের (" + r + ") উপরের দিকে, অর্থাৎ পরের ব্যান্ডের কাছাকাছি।"; },
+        lower: function (b, r) { return "এই স্কোর IELTS " + b + " ব্যান্ডের (" + r + ") নিচের দিকে, অর্থাৎ আগের ব্যান্ডের কাছাকাছি।"; },
+        span: function (r) { return "এই Duolingo স্কোর IELTS " + r + "-এর মধ্যে পড়ে। বিশ্ববিদ্যালয় কত চায়, সেটি জেনে নেওয়া ভালো।"; },
+        between: function (v, b) { return "TOEFL " + v + " স্কোর IELTS " + b + " ও তার পরের ব্যান্ডের মাঝামাঝি। নিরাপদ ধরে IELTS " + b + " দেখানো হয়েছে।"; }
+      }
+    },
+    en: {
+      title: "English test score comparison",
+      lede: "Enter your IELTS, TOEFL, PTE or Duolingo score to see roughly what it equals on the other tests.",
+      lblTest: "Which test score do you have?",
+      lblIelts: "IELTS overall band",
+      lblScore: "Your score",
+      test: { ielts: "IELTS", tn: "TOEFL (new 1–6)", to: "TOEFL (old 0–120)", pte: "PTE Academic", det: "Duolingo" },
+      hint: {
+        tn: "1 to 6, in half steps (for example 4.5)",
+        to: "0 to 120. For tests taken before 21 January 2026",
+        pte: "10 to 90",
+        det: "10 to 160"
+      },
+      equals: "Your score equals IELTS",
+      cell: { tn: "TOEFL iBT (new 1–6)", to: "TOEFL iBT (old 0–120)", pte: "PTE Academic", det: "Duolingo English Test" },
+      mine: "your score",
+      level: {
+        B1: "Intermediate",
+        B2: "Upper-intermediate",
+        C1: "Advanced",
+        C2: "Proficient"
+      },
+      upTo: "up to ",
+      ctaTitle: "Where can you study with this score?",
+      ctaBody: "Talk to a " + CONFIG.brand + " counsellor to find out which countries and universities your score can work for.",
+      wa: "Message on WhatsApp",
+      call: "Call us",
+      waMsg: function (testLabel, val, ielts) { return "Hello, my " + testLabel + " score is " + val + " (equal to IELTS " + ielts + "). I would like to know about counselling."; },
+      fine: [
+        "This is an approximate comparison. Each university and embassy decides which tests it accepts and what score it needs. Many also set a minimum in each skill, and visas can require a specific approved test (for example, a UKVI-approved test for the UK).",
+        "TOEFL iBT has reported scores on a 1–6 scale since 21 January 2026. Duolingo comparisons differ slightly between sources."
+      ],
+      err: {
+        enter: "Enter a score.",
+        range: function (a, b) { return "Enter a score between " + a + " and " + b + "."; },
+        half: "TOEFL 1–6 scores come in half steps, such as 4.5 or 5.0.",
+        belowTn: "This score is below IELTS 4.0, so no comparison is shown.",
+        belowPte: "This is below IELTS 4.5. The comparison here starts at PTE 30.",
+        belowDet: "This is below IELTS 5.5. The comparison here starts at Duolingo 90."
+      },
+      note: {
+        upper: function (b, r) { return "This score is at the upper end of the IELTS " + b + " range (" + r + "), so it is close to the next band."; },
+        lower: function (b, r) { return "This score is at the lower end of the IELTS " + b + " range (" + r + "), so it is close to the band below."; },
+        span: function (r) { return "This Duolingo score covers IELTS " + r + ". It is worth checking which score the university wants."; },
+        between: function (v, b) { return "TOEFL " + v + " sits between IELTS " + b + " and the next band up. IELTS " + b + " is shown to stay on the safe side."; }
+      }
+    }
+  };
+
+  var lang = "bn";
+  var state = { test: "ielts", value: TESTS.ielts.def };
+
+  function $(s) { return document.querySelector(s); }
+  function f1(n) { return Number(n).toFixed(1); }
+  function T() { return TXT[lang]; }
+  function fmtR(r) {
+    if (!r) return "—";
+    if (r[0] === 0) return T().upTo + r[1];
+    return r[0] === r[1] ? String(r[0]) : r[0] + "–" + r[1];
+  }
+  function unionR(bands, key) {
+    var rs = bands.map(function (b) { return b[key]; }).filter(Boolean);
+    if (!rs.length) return null;
+    return [Math.min.apply(null, rs.map(function (r) { return r[0]; })), Math.max.apply(null, rs.map(function (r) { return r[1]; }))];
+  }
+  function ieltsText(bands) {
+    var lo = bands[0].b, hi = bands[bands.length - 1].b;
+    return lo === hi ? f1(lo) : f1(lo) + "–" + f1(hi);
+  }
+  function tnText(bands) {
+    var v = bands.map(function (b) { return b.tn; });
+    var lo = Math.min.apply(null, v), hi = Math.max.apply(null, v);
+    return lo === hi ? f1(lo) : f1(lo) + "–" + f1(hi);
+  }
+  function levels(bands) {
+    var out = [];
+    bands.forEach(function (b) { if (out.indexOf(b.cefr) === -1) out.push(b.cefr); });
+    return out;
+  }
+  function ascending(list) { return list.slice().sort(function (a, b) { return a.b - b.b; }); }
+
+  // ---- lookup ----
+  function resolve(test, v) {
+    var t = TESTS[test], bands, r;
+    if (test === "ielts") {
+      bands = BANDS.filter(function (x) { return x.b === v; });
+      return bands.length ? { bands: bands } : { err: "enter" };
+    }
+    if (isNaN(v)) return { err: "enter" };
+    if (v < t.min || v > t.max) return { err: "range" };
+    if (test === "tn") {
+      if (Math.round(v * 2) !== v * 2) return { err: "half" };
+      bands = BANDS.filter(function (x) { return x.tn === v; });
+      if (bands.length) return { bands: ascending(bands) };
+      var below = BANDS.filter(function (x) { return x.tn <= v; });
+      if (!below.length) return { err: "belowTn" };
+      return { bands: [below[0]], note: { type: "between", v: f1(v), b: f1(below[0].b) } };
+    }
+    bands = BANDS.filter(function (x) { r = x[test]; return r && v >= r[0] && v <= r[1]; });
+    if (!bands.length) {
+      if (test === "pte") return { err: "belowPte" };
+      if (test === "det") return { err: "belowDet" };
+      return { err: "enter" };
+    }
+    bands = ascending(bands);
+    if (bands.length > 1) return { bands: bands, note: { type: "span", r: ieltsText(bands) } };
+    r = bands[0][test];
+    if (r[1] > r[0]) {
+      var frac = (v - r[0]) / (r[1] - r[0]);
+      if (frac >= 0.75) return { bands: bands, note: { type: "upper", b: f1(bands[0].b), r: fmtR(r) } };
+      if (frac <= 0.25) return { bands: bands, note: { type: "lower", b: f1(bands[0].b), r: fmtR(r) } };
+    }
+    return { bands: bands };
+  }
+
+  // ---- render ----
+  function renderStatic() {
+    var t = T();
+    document.documentElement.lang = lang === "bn" ? "bn" : "en";
+    document.title = t.title + " – " + CONFIG.brand;
+    $("#brand").textContent = CONFIG.brand;
+    $("#h1").textContent = t.title;
+    $("#lede").textContent = t.lede;
+    $("#lblTest").textContent = t.lblTest;
+    $("#lang-bn").setAttribute("aria-pressed", lang === "bn");
+    $("#lang-en").setAttribute("aria-pressed", lang === "en");
+    var chips = "";
+    ORDER.forEach(function (k) {
+      chips += '<button type="button" class="chip-btn" data-t="' + k + '" aria-pressed="' + (k === state.test) + '">' + t.test[k] + "</button>";
+    });
+    $("#chips").innerHTML = chips;
+    $("#chips").querySelectorAll(".chip-btn").forEach(function (b) {
+      b.addEventListener("click", function () {
+        state.test = b.getAttribute("data-t");
+        state.value = TESTS[state.test].def;
+        renderStatic(); renderInput(); renderResult();
+      });
+    });
+    $("#fine").innerHTML = t.fine.map(function (p) { return "<p>" + p + "</p>"; }).join("");
+  }
+
+  function renderInput() {
+    var t = T(), box = $("#inputBox"), cfg = TESTS[state.test];
+    if (state.test === "ielts") {
+      var html = '<span class="label" id="lblBand">' + t.lblIelts + '</span><div class="ruler" role="group" aria-labelledby="lblBand">';
+      BANDS.slice().reverse().forEach(function (b) {
+        html += '<button type="button" class="band" data-b="' + b.b + '" aria-pressed="' + (b.b === state.value) + '">' + f1(b.b) + "</button>";
+      });
+      box.innerHTML = html + "</div>";
+      box.querySelectorAll(".band").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          state.value = parseFloat(btn.getAttribute("data-b"));
+          box.querySelectorAll(".band").forEach(function (x) { x.setAttribute("aria-pressed", x === btn ? "true" : "false"); });
+          renderResult();
+        });
+      });
+    } else {
+      box.innerHTML = '<label class="label" for="scoreIn">' + t.lblScore + '</label><input id="scoreIn" type="number" inputmode="decimal" min="' + cfg.min + '" max="' + cfg.max + '" step="' + cfg.step + '" value="' + state.value + '"><div class="hint">' + t.hint[state.test] + "</div>";
+      $("#scoreIn").addEventListener("input", function () {
+        state.value = parseFloat(this.value);
+        renderResult();
+      });
+    }
+  }
+
+  function contactHtml(bands) {
+    var t = T();
+    var wa = (CONFIG.whatsapp || "").replace(/\D/g, "");
+    var ph = (CONFIG.phone || "").replace(/\D/g, "");
+    if (!wa && !ph) return "";
+    var html = '<div class="cta"><h2>' + t.ctaTitle + "</h2><p>" + t.ctaBody + '</p><div class="btns">';
+    if (wa) {
+      var val = state.test === "ielts" ? f1(state.value) : String(state.value);
+      var msg = t.waMsg(t.test[state.test], val, ieltsText(bands));
+      html += '<a class="wa" target="_blank" rel="noopener" href="https://wa.me/' + wa + "?text=" + encodeURIComponent(msg) + '">' + t.wa + "</a>";
+    }
+    if (ph) html += '<a class="call" href="tel:+' + ph + '">' + t.call + "</a>";
+    return html + "</div></div>";
+  }
+
+  function renderResult() {
+    var t = T(), box = $("#result");
+    var res = resolve(state.test, state.value);
+    if (res.err) {
+      var m = t.err[res.err];
+      if (res.err === "range") m = m(TESTS[state.test].min, TESTS[state.test].max);
+      box.innerHTML = '<div class="result"><div class="msg" role="status">' + m + "</div></div>";
+      return;
+    }
+    var bands = res.bands;
+    var cells = [
+      ["tn", tnText(bands)],
+      ["to", fmtR(unionR(bands, "to"))],
+      ["pte", fmtR(unionR(bands, "pte"))],
+      ["det", fmtR(unionR(bands, "det"))]
+    ];
+    var lv = levels(bands);
+    var html = '<div class="result">';
+    html += '<div class="headline"><span class="k">' + t.equals + '</span><span class="big">' + ieltsText(bands) + "</span></div>";
+    html += '<div class="level">' + lv.map(function (c) { return '<span class="pill">CEFR ' + c + '</span><span class="txt">' + t.level[c] + "</span>"; }).join(" ") + "</div>";
+    if (res.note) {
+      var n = res.note, nt = n.type === "span" ? t.note.span(n.r) : n.type === "between" ? t.note.between(n.v, n.b) : t.note[n.type](n.b, n.r);
+      html += '<p class="note">' + nt + "</p>";
+    }
+    html += '<div class="grid">';
+    cells.forEach(function (c) {
+      var mine = c[0] === state.test;
+      html += '<div class="cell' + (mine ? " mine" : "") + '"><div class="t">' + t.cell[c[0]] + '</div><div class="v">' + c[1] + "</div>" + (mine ? '<span class="tag">' + t.mine + "</span>" : "") + "</div>";
+    });
+    html += "</div>" + contactHtml(bands) + "</div>";
+    box.innerHTML = html;
+  }
+
+  function setLang(l) {
+    lang = l;
+    renderStatic(); renderInput(); renderResult();
+  }
+  $("#lang-bn").addEventListener("click", function () { setLang("bn"); });
+  $("#lang-en").addEventListener("click", function () { setLang("en"); });
+
+  renderStatic(); renderInput(); renderResult();
+})();
+</script>
+</body>
+</html>
